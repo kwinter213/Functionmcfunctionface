@@ -2,12 +2,12 @@ import math
 import matplotlib.pyplot as plt
 
 p_c = 40
-p_max = 200
+p_max = 30
 q_c = .125
 v_max = .01
 
 delta_x = .1
-time_iterations = 50
+time_iterations = 100
 
 # def calculate_initial_densities(x_min, x_max, delta_x, time_iterations):
 #     max_with_step1 = int(1/delta_x)
@@ -20,7 +20,7 @@ def calculate_initial_densities(x_min, x_max, delta_x, time_iterations):
     zero = (x_max-x_min)/2.0
     weight = 10
 
-    return [weight * ((x_min+float(x)*delta_x)-zero)**2.0 if weight * ((x_min+float(x)*delta_x)-zero)**2.0 < p_max else p_max for x in range(max_with_step1*(x_max-x_min))]
+    return [-1 * weight * ((x_min+float(x)*delta_x)-zero)**2.0 + weight if -1 * weight * ((x_min+float(x)*delta_x)-zero)**2.0 + weight >= 0 else 0 for x in range(max_with_step1*(x_max-x_min))]
 
 def calculate_dq_dt(flow):
     dq_dt_dict = {0:(flow[1]-flow[0])/delta_x, (len(flow)-1):(flow[len(flow)-1]-flow[len(flow)-2])/delta_x}
